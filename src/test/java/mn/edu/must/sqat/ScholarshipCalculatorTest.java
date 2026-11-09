@@ -124,4 +124,30 @@ class ScholarshipCalculatorTest {
     void scholarshipBelowThreeZero() {
         assertEquals(0, calc.scholarship(2.5, 20, false));
     }
+
+    // ---- Part C: loop boundaries in gpa() (0 / 1 / 2+ iterations) ----
+
+    @Test
+    void gpaLoopZeroEmptyThrows() {
+        // 0 iterations: empty array must be rejected before the loop
+        assertThrows(IllegalArgumentException.class, () -> calc.gpa(new double[]{}));
+    }
+
+    @Test
+    void gpaLoopZeroNullThrows() {
+        // 0 iterations: null input must be rejected before the loop
+        assertThrows(IllegalArgumentException.class, () -> calc.gpa(null));
+    }
+
+    @Test
+    void gpaLoopOne() {
+        // 1 iteration
+        assertEquals(4.0, calc.gpa(new double[]{95}), 1e-9);
+    }
+
+    @Test
+    void gpaLoopMany() {
+        // 2+ iterations: (4 + 3 + 2 + 1) / 4
+        assertEquals(2.5, calc.gpa(new double[]{95, 85, 75, 65}), 1e-9);
+    }
 }
